@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Assignment-1</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+     
+	 /*styles for body*/
+      body
+	  { 
+		 		font-family: Roboto, Arial, sans-serif;
+	      font-size: 14px;
+	      color: #003171;
+	      line-height: 22px;
+		  	background-color:#66A4FF;
+      }
+	  
+	   input
+	  {
+	      margin-bottom: 10px;
+	      border: 1px solid #ccc;
+	      border-radius: 3px;
+		  	padding: 5px;
+		  	width: calc(100% - 10px);
+    }
+	  
+	  /*styles for container that contains table*/
+	  .container
+	  {
+        background-color: #f2f2f2;
+        padding: 40px;
+        margin-top: 100px; 
+        margin-bottom: ;
+				width: 80%;
+        border-radius: 5px;
+        box-shadow: 0 6px 6px 2px lightblue;
+      }
+	  
+	  /*styles for header*/
+	   header
+	   {
+        text-align: center;    
+       }
+	   
+	   /*styles for button*/
+       button
+	   {
+	        padding: 9px;
+	        margin-right: 20px;
+					font-family: 'Roboto', sans-serif;
+	        letter-spacing: 2.5px;
+	        background-color: #0068FF;
+	        color: #fff;
+					border:none;
+	        border-radius: 20px;
+			width:200px;
+	        box-shadow: 0 5px 20px #66A4FF;
+		}
+		
+      /*Hover effect for button*/
+      button:hover{
+        background-color: #003171;
+        box-shadow: 0 5px 20px #003171;
+        transition: 0.5s;
+      }
+	  
+	  /*responsive window style */
+	     @media screen and (max-width: 720px) {
+        button{
+        width: 100%;
+        letter-spacing: 0px;
+        
+				margin: 2%;
+      }
+   
+    </style>
+  </head>
+  
+  <body>
+  	  <!-- starting of div container -->
+      <div class="container">
+	  <!-- div that holds header -->
+        <div>
+	        <header>
+	      		<h1>Assignment - 1</h1>
+	    	</header>
+        </div>
+		<!-- starting of table-->
+		<form action="#">
+			<div>
+				<label>Enter First Name:</label>
+				<input type="text" id="firstName">
+			</div>
+			<div>
+				<label>Enter Last Name:</label>
+				<input type="text" id="lastName">
+			</div>
+			
+			<div>
+				<label>Enter City:</label>
+				<input type="text" id="city">
+			</div>
+			
+			<div>
+				<label>Enter country:</label>
+				<input type="text" id="country">
+			</div>
+			<button  type="submit" onclick="addDataBottom()">Add data to the bottom</button>
+	
+		</form>
+		<br><br>
+        <table  id="myTable" class="table table-striped">
+	  		<thead>
+	    		<tr>
+		  			<th>S.No</th>
+	      			<th>First name</th>
+	      			<th>Last name</th>
+	      			<th>City</th>
+	      			<th>Country</th>
+	    		</tr>
+	  		</thead>
+	   		<tbody>
+  				<tr>
+    				<td>1</td>
+				    <td>Shefeena</td>
+				    <td>E S</td>
+				    <td>Thissur</td>
+				    <td>India</td>
+  				</tr>
+			</tbody>
+		</table>
+		<!-- ending of table-->
+		<!-- div that holds the buttons-->
+		<div class="d-grid gap-2 col-6 mx-auto">
+		  <button  type="button"onclick="addRowBottom('myTable')">Add row to bottom</button> <!-- calls addRowBottom() function-->
+		  <button  type="button"onclick="addRowTop('myTable')">Add row to top</button>
+		  <button  type="button" onclick="deleteRowBottom('myTable')">delete row bottom</button>
+		  <button  type="button" onclick="deleteRowTop('myTable')">delete row Top</button><!-- calls addRowTop() function-->
+		</div>
+   </div>
+  <script>
+			var initialTableSize = 5; //column no is 5
+			
+			// function to add row at the bottom
+			function addRowBottom(tableID)
+			 {
+			 	var defaultData = new Array("Jane", "Doe","yyy","yyy");//array that stores default value to be inserted when new row is created
+				var tbodyRef = document.getElementById(tableID).getElementsByTagName('tbody')[0];//to get only tbody content
+				var newRow = tbodyRef.insertRow();//  a row created
+				var newText; // to store new textnode
+				var newCell; // to store new cell
+				var tbodyRowCount = tbodyRef.rows.length; // stoes the total no of rows
+				
+				for( i = 0; i < initialTableSize ;i++)
+				{
+					newText = document.createTextNode(defaultData[i-1]); //stores the data from the array
+		   			newCell = newRow.insertCell(i);  // new cell is inserted to the row
+		   			if(i == 0)
+					{
+			   			newText = document.createTextNode(tbodyRowCount); //to set S.No 
+			   		}
+		   			// Append  text node to the cell
+		  			newCell.appendChild(newText);
+		  		}
+			}
+			
+			//function to add row at the top
+			function addRowTop(tableID)
+			 {
+			 	var defaultData = new Array("John", "Doe","xxx","xxx");
+				var tbodyRef = document.getElementById(tableID).getElementsByTagName('tbody')[0];
+				// Insert a row at the end of table
+				var newRow = tbodyRef.insertRow(0);// insert a row
+				var newText;  //to store new textnode
+		 		var newCell; // to store new cell
+		 		var tbodyRowCount = tbodyRef.rows.length; // stores the total row count
+				for( i = 0; i < initialTableSize ;i++)
+				{
+					newText = document.createTextNode(defaultData[i-1]); // stores the data from the array
+					newCell = newRow.insertCell(i); // insert cell to newly created row
+					newCell.appendChild(newText); // Append  text node to the cell
+		  		}
+				// to set S.No by overriding existing S.No s
+				for( i = 0; i < tbodyRowCount ;i++)
+				{
+			  		var myRow = tbodyRef.getElementsByTagName("tr")[i];//takes each tr
+			  		var td = myRow.getElementsByTagName("td")[0];// takes first td of each tr i.e S.No
+			  		td.childNodes[0].data = i+1; //set S.no from 1 to total row count
+			 		
+		  		} 
+			}
+			
+				//function to add row at the top
+			function deleteRowBottom(tableID)
+			 {
+			 	
+				var tbodyRef = document.getElementById(tableID).getElementsByTagName('tbody')[0].deleteRow(-1);
+		 		
+				 
+				
+				
+			}
+			
+			function deleteRowTop(tableID)
+			 {
+			 	
+				var tbodyRef = document.getElementById(tableID).getElementsByTagName('tbody')[0];//tkes table body
+				var tbodyRowCount = tbodyRef.rows.length; // stores the total row count
+				tbodyRef.getElementsByTagName("tr")[0].remove();//takes first row and deletes it
+			  
+				// to set S.No by overriding existing S.No s
+				for( i = 0; i < tbodyRowCount-1 ;i++)
+				{
+			  		var myRow = tbodyRef.getElementsByTagName("tr")[i];//takes each tr
+			  		var td = myRow.getElementsByTagName("td")[0];// takes first td of each tr i.e S.No
+			  		td.childNodes[0].data = i+1; //set S.no from 1 to total row count
+			 		
+		  		}
+				 
+				
+				
+			}
+			
+			
+			function addDataBottom()
+			 {
+			 	
+				var fname = document.getElementById("firstName").value;
+				var lname = document.getElementById("lastName").value;
+				var city = document.getElementById("city").value;
+				var country = document.getElementById("country").value;
+				var tbodyRef = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+				var defaultData = new Array(fname,lname,city,country);
+				var newRow = tbodyRef.insertRow();
+				var newText; // to store new textnode
+				var newCell;
+				var tbodyRowCount = tbodyRef.rows.length; // stoes the total no of rows
+				
+				for( i = 0; i < initialTableSize ;i++)
+				{
+					newText = document.createTextNode(defaultData[i-1]); //stores the data from the array
+		   			newCell = newRow.insertCell(i);  // new cell is inserted to the row
+		   			if(i == 0)
+					{
+			   			newText = document.createTextNode(tbodyRowCount); //to set S.No 
+			   		}
+		   			// Append  text node to the cell
+		  			newCell.appendChild(newText);
+		  		}
+				
+			
+		  		
+				 
+				
+				
+			}
+		</script>
+		
+  </body>
+</html>
